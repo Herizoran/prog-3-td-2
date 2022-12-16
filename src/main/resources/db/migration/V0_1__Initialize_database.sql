@@ -23,14 +23,15 @@ CREATE TABLE player(
    FOREIGN KEY(id_team) REFERENCES team(id)
 );
 
-CREATE TABLE play(
-   id SERIAL,
-   datetime TIMESTAMPZ,
-   stadium VARCHAR(50) ,
-   id_team INTEGER NOT NULL,
-   PRIMARY KEY(id),
-   FOREIGN KEY(id_team) REFERENCES team(id)
-;
+CREATE TABLE play
+(
+    id       SERIAL,
+    datetime TIMESTAMP,
+    stadium  VARCHAR(50),
+    id_team  INTEGER NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (id_team) REFERENCES team (id)
+);
 
 CREATE TABLE team_sponsor(
    id_team INTEGER,
