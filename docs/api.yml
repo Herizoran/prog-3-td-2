@@ -1,0 +1,236 @@
+openapi: 3.0.0
+servers:
+  # https://app.swaggerhub.com/apis/Herizoran/footballAPI/1.0.0
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/Herizoran/footballAPI/1.0.0
+info:
+  version: "1.0.0"
+  title: PROG3 -TD2
+  description: API that shows the details of a football team, including match, team, players
+paths:
+  /teams:
+    get:
+      tags:
+        - Teams
+      summary: get all teams
+      operationId: getteams
+      responses:
+        '200':
+          description: List of teams
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Team'
+        '500':
+          description: Internal server error
+    post:
+      tags:
+        - Teams
+      summary: create new teams
+      operationId: createteams
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTeam'
+      responses:
+        '200':
+          description: List of created teams
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Team'
+        '500':
+          description: Internal server error
+    put:
+      tags:
+        - Teams
+      summary: update some teams
+      operationId: updateteams
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTeam'
+      responses:
+        '200':
+          description: List of updated teams
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Team'
+        '500':
+          description: Internal server error
+  /teams/{TeamId}:
+    delete:
+      tags:
+        - Teams
+      summary: delete a specific Team
+      operationId: deleteTeam
+      parameters:
+        - in: path
+          name: TeamId
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: Return the deleted Team
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+        '500':
+          description: Internal server error
+  /matches:
+    get:
+      tags:
+        - Matches
+      summary: get all matches
+      operationId: getmatches
+      responses:
+        '200':
+          description: List of matches
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/match'
+        '500':
+          description: Internal server error
+    post:
+      tags:
+        - Matches
+      summary: create new matches
+      operationId: CreateMatches
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CreateMatch'
+      responses:
+        '200':
+          description: List of created matches
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/match'
+        '500':
+          description: Internal server error
+    put:
+      tags:
+        - Matches
+      summary: update some matches
+      operationId: updateteams
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/UpdateMatch'
+      responses:
+        '200':
+          description: List of updated matches
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/match'
+        '500':
+          description: Internal server error
+  /matches/{matchId}:
+    delete:
+      tags:
+        - Matches
+      summary: delete a specific Team
+      operationId: deleteTeam
+      parameters:
+        - in: path
+          name: matchId
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: Return the deleted match
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/match'
+        '500':
+          description: Internal server error
+components:
+  schemas:
+    Team:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/UpdateTeam'
+    UpdateTeam:
+      allOf:
+        - $ref: '#/components/schemas/CreateTeam'
+      properties:
+        players:
+          type: array
+          items:
+            $ref: '#/components/schemas/Player'
+        id:
+          type: integer
+    CreateTeam:
+      type: object
+      properties:
+        name:
+          type: string
+        match:
+          type: string
+        sponsors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Sponsor'
+    Match:
+      type: object
+      properties:
+        hasParticularity:
+          type: boolean
+      allOf:
+        - $ref: '#/components/schemas/UpdateMatch'
+    UpdateMatch:
+      allOf:
+        - $ref: '#/components/schemas/CreateMatch'
+      properties:
+        id:
+          type: integer
+    CreateMatch:
+      type: object
+      properties:
+        name:
+          type: string
+        particularity:
+          type: string
+    Player:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    Sponsor:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
