@@ -24,4 +24,11 @@ public class TeamEntity {
     @ManyToMany(mappedBy = "team")
     private List<SponsorEntity> sponsor;
      */
+
+    @ManyToMany
+    @JoinTable(
+            name = "team_play",
+            joinColumns = @JoinColumn(name = "id_team"),
+            inverseJoinColumns = @JoinColumn(name = "id_play"))
+    private List<MatchEntity> match;
 }
